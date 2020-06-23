@@ -1,2 +1,2 @@
 # PythonTracer
-A python program to color code lines as they are executed in the terminal
+A python 3+ program to color code lines executed lines of python code in the terminal
