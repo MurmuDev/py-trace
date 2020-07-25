@@ -15,6 +15,8 @@ Support for ignoring specific modules is required.
 For example imported system defined modules also get traced.
 
 #v2.0
-   Added Support for CodeHeat
-   Print the color code of specific line based on the number of times it has been called
-   Set your custom color in the class name CodeHeat
+Added Support for CodeHeat
+
+Print the color code of specific line based on the number of times it has been called
+
+Set your custom color in the class name CodeHeat
