@@ -46,7 +46,6 @@ class CodeHeat():
 
 
 
-
 #context manager for tracing
 class Tracer(object):
 
@@ -106,11 +105,11 @@ def trace_func(frame,event,arg):
 
 startline = getCurrentLine()
 def Trace():
-    #insert proper python code within the Tracer() body
+    #ADD YOUR WHOLE CODE WITHIN THE HASHED LINES
     global startline
     startline = getCurrentLine()
     with Tracer(trace_func):
-    # ADD YOUR WHOLE CODE AFTER THIS LINE
+################################
         class A:
              x=''
              y=''
@@ -138,6 +137,6 @@ def Trace():
         z = A(3,4)
         method1(x,y)
 
-# ADD YOUR WHOLE CODE BEFORE THIS LINE
+##################################
 endline = getCurrentLine()
 Trace()
