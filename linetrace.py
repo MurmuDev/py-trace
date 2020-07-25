@@ -1,8 +1,10 @@
 import sys
 import inspect
 
-#global line set
+#global line data
 line_set = set()
+line_dict = {}
+
 
 class Color():
     #add your color here
@@ -26,6 +28,22 @@ class Color():
 
     CEND = '\033[0m'
 
+class CodeHeat():
+    #create a mapping of frequency_atleast : color
+    heat = {
+         1: Color.CVIOLETBG,
+         2: Color.CREDBG
+    }
+
+    def getColor(freq):
+        color = CodeHeat.heat.get(freq,"none")
+        while color == "none":
+            freq -= 1
+            color = CodeHeat.heat.get(freq,"none")
+        return color
+
+
+
 
 
 #context manager for tracing
@@ -43,7 +61,6 @@ class Tracer(object):
         #write_dict()
         print_colored()
 
-
 #function for printing the code
 def print_colored():
     with open('./linetrace.py') as fp:
@@ -58,16 +75,19 @@ def print_colored():
 
         while line and lineno<endline:
             if lineno in line_set:
-                print(Color.CREDBG,line.rstrip(),Color.CEND)
+                #change output color here
+                print(CodeHeat.getColor(line_dict[lineno]),line.rstrip(),Color.CEND)
             else:
                 print(line.rstrip())
             line = fp.readline()
             lineno += 1
 
+# get current line no
 def getCurrentLine():
     return inspect.currentframe().f_back.f_lineno
-x = getCurrentLine()
 
+x = getCurrentLine()
+# function to trace the code
 def trace_func(frame,event,arg):
         #co = frame.f_code
         ignoreLength = 0
@@ -78,7 +98,8 @@ def trace_func(frame,event,arg):
             if func_lineno>startline and caller_lineno> startline:
                 line_set.add(func_lineno)
                 line_set.add(caller_lineno)
-                #print(func_lineno+ignoreLength)
+                line_dict[func_lineno] = line_dict.get(func_lineno,0)+1
+                line_dict[caller_lineno] = 1
         return trace_func
 
 
