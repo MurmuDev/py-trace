@@ -7,7 +7,7 @@ line_dict = {}
 
 
 class Color():
-    #add your color here
+    #add your color(s) here
     CBLACK  = '\33[30m'
     CRED    = '\33[31m'
     CGREEN  = '\33[32m'
@@ -29,6 +29,7 @@ class Color():
     CEND = '\033[0m'
 
 class CodeHeat():
+
     #create a mapping of frequency_atleast : color
     heat = {
          1: Color.CVIOLETBG,
@@ -67,11 +68,9 @@ def print_colored():
         line = fp.readline()
         lineno = 1
 
-
         while lineno<=startline+1:
             lineno +=1
             line = fp.readline()
-
 
         while line and lineno<endline:
             if lineno in line_set:
@@ -87,6 +86,8 @@ def getCurrentLine():
     return inspect.currentframe().f_back.f_lineno
 
 x = getCurrentLine()
+
+
 # function to trace the code
 def trace_func(frame,event,arg):
         #co = frame.f_code
@@ -109,6 +110,7 @@ def Trace():
     global startline
     startline = getCurrentLine()
     with Tracer(trace_func):
+    # ADD YOUR WHOLE CODE AFTER THIS LINE
         class A:
              x=''
              y=''
@@ -136,5 +138,6 @@ def Trace():
         z = A(3,4)
         method1(x,y)
 
+# ADD YOUR WHOLE CODE BEFORE THIS LINE
 endline = getCurrentLine()
 Trace()
